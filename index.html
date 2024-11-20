@@ -1815,6 +1815,116 @@ html {
   </div>
 </footer>
 <script>
+
+  
+document.addEventListener('DOMContentLoaded', function() {
+    // Feature cards animation
+    const featureCards = document.querySelectorAll('.feature-card');
+    featureCards.forEach(card => {
+        card.addEventListener('click', () => {
+            card.style.transform = 'scale(1.05)';
+            setTimeout(() => {
+                card.style.transform = 'scale(1)';
+            }, 200);
+        });
+    });
+
+    // FAQ Toggle
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const answer = item.querySelector('.faq-answer');
+            const isActive = item.classList.contains('active');
+            
+            // Close all FAQ items
+            faqItems.forEach(faq => {
+                faq.classList.remove('active');
+                faq.querySelector('.faq-answer').style.display = 'none';
+            });
+
+            // Open clicked item if it wasn't active
+            if (!isActive) {
+                item.classList.add('active');
+                answer.style.display = 'block';
+            }
+        });
+    });
+
+    // Frequency card interactions
+    const frequencyCards = document.querySelectorAll('.frequency-card');
+    frequencyCards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            card.style.transform = 'translateY(-10px)';
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'translateY(0)';
+        });
+    });
+
+    // Smooth scroll for navigation - Updated with logging and error handling
+    document.querySelectorAll('.quick-links a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            console.log('Clicking link to:', targetId); // Debug logging
+            
+            const targetElement = document.querySelector(targetId);
+            
+            if (targetElement) {
+                console.log('Found target element:', targetElement); // Debug logging
+                const navHeight = document.querySelector('.quick-links')?.offsetHeight || 0;
+                const targetPosition = targetElement.offsetTop - navHeight;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            } else {
+                console.warn('Target element not found:', targetId); // Warning for missing elements
+            }
+        });
+    });
+
+    // Frequency table row hover effect
+    const tableRows = document.querySelectorAll('.frequency-comparison tbody tr');
+    tableRows.forEach(row => {
+        row.addEventListener('mouseenter', () => {
+            row.style.backgroundColor = '#f0f0f0';
+        });
+        row.addEventListener('mouseleave', () => {
+            row.style.backgroundColor = 'white';
+        });
+    });
+
+    // Study details expansion
+    const studyDetails = document.querySelectorAll('.study-details');
+    studyDetails.forEach(study => {
+        study.addEventListener('click', () => {
+            study.style.transform = 'scale(1.02)';
+            setTimeout(() => {
+                study.style.transform = 'scale(1)';
+            }, 200);
+        });
+    });
+
+    // Handle detail toggles
+    const detailToggles = document.querySelectorAll('.detail-toggle');
+    detailToggles.forEach(toggle => {
+        const content = toggle.nextElementSibling;
+        if (content) {  // Add null check
+            toggle.addEventListener('click', () => {
+                const isActive = content.classList.contains('active');
+                content.classList.toggle('active');
+                toggle.textContent = isActive ? 
+                    'Show detailed information' : 
+                    'Hide detailed information';
+            });
+        }
+    });
+
+    // Remove duplicate smooth scroll code since it's handled above
+});
 document.addEventListener('DOMContentLoaded', function() {
   let audioContext;
   let analyser;
@@ -1828,6 +1938,10 @@ document.addEventListener('DOMContentLoaded', function() {
   const dominantFreqDisplay = document.getElementById('dominantFrequency');
   const ctx = canvas.getContext('2d');
 
+
+
+
+  
   // Set canvas size
   function resizeCanvas() {
     canvas.width = canvas.offsetWidth;
